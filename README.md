@@ -1,12 +1,27 @@
-# React + Vite
+# Fennix 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Requisitos
 
-Currently, two official plugins are available:
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- Docker Compose (incluido en Docker Desktop)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Comandos Docker
 
-## Expanding the ESLint configuration
+### Levantar contenedores
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Comando para levantar los contenedores 
+```
+docker compose up
+```
+
+Comando para bajar los contenedores 
+```
+docker compose down
+```
+
+Comando para eliminar la cache 
+```
+docker compose build --no-cache
+```
+
+
