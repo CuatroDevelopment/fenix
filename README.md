@@ -34,6 +34,12 @@ Instalar para las variables de entorno
 pip install python-dotenv
 ```
 
+Para encriptar necesitamos la siguiente dependecia
+```
+pip install passlib[bcrypt]
+```
+
+
 
 
 
