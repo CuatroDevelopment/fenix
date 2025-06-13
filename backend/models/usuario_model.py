@@ -15,7 +15,8 @@ class UsuarioCreate(BaseModel):
     password: str
     permissions: Optional[Permisos]
 
-class UsuarioOut(BaseModel):
-    id: str
-    nombre: str
+class UsuarioLoginOut(BaseModel):
     email: str
+    password: str
+
+

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from models.usuario_model import UsuarioCreate
+from models.usuario_model import UsuarioCreate, UsuarioLoginOut
 from db.connection import usuarios_collection
-from utils.password_handler import hash_password
+from utils.password_handler import hash_password, verify_password
 import logging
 
 router = APIRouter(prefix="/usuarios", tags=["Usuarios"])
@@ -36,3 +36,15 @@ def registro(usuario: UsuarioCreate):
         "id": str(resultado.inserted_id),
         "message": "Usuario registrado exitosamente"
     }
+
+@router.post("/login")
+def login(credenciales: UsuarioLoginOut): 
+    usuario = usuarios_collection.find_one({"email": credenciales.email})
+    if not usuario:
+        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+
+    if not verify_password(credenciales.password, usuario["password"]):
+        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+
+    # Aquí puedes devolver un token JWT o simplemente un mensaje de éxito
+    return {"message": "Login exitoso", "user_id": str(usuario["_id"])}
