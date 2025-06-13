@@ -1,17 +1,25 @@
-# Etapa base
-FROM node:24-slim
+# ---------- Etapa 1: Build del frontend ----------
+FROM node:20-alpine as build
 
-# Crear directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
 COPY . .
 
-# Instalar dependencias
-RUN npm install
+RUN npm run build
 
-# Exponer el puerto Vite por defecto
-EXPOSE 5173
+# ---------- Etapa 2: Servir el build ----------
+FROM nginx:alpine
 
-# Comando para iniciar Vite en modo desarrollo accesible desde fuera del contenedor
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Agregamos configuración personalizada
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+
+
