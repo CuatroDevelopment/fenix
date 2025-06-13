@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Body, HTTPException
 from models.usuario_model import UsuarioCreate, UsuarioLoginOut
 from db.connection import usuarios_collection
 from utils.password_handler import hash_password, verify_password
@@ -48,3 +48,13 @@ def login(credenciales: UsuarioLoginOut):
 
     # Aquí puedes devolver un token JWT o simplemente un mensaje de éxito
     return {"message": "Login exitoso", "user_id": str(usuario["_id"])}
+
+@router.get("/dashboard")
+def Dashboard (email: str):
+    usuario = usuarios_collection.find_one({"email": email})
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    return {
+        "permissions": usuario.get("permissions", {})
+    }
