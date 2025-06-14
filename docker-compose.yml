@@ -20,6 +20,7 @@ services:
 
   frontend:
     build: ./frontend
+    container_name: frontend
     restart: always
     expose:
       - 5173
@@ -27,6 +28,8 @@ services:
       - "5173:5173"
     environment:
       - VITE_API_URL=http://backend:8001
+    env_file:
+    - .env
     networks:
       - proyecto_net
     depends_on:
@@ -46,6 +49,7 @@ services:
     volumes:
       - mongo_data:/data/db
       - ./mongo_init/:/docker-entrypoint-initdb.d
+    
     networks:
       - proyecto_net
 

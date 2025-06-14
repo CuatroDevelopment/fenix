@@ -13,31 +13,62 @@ const Login = () => {
     if (!email.trim()) newErrors.email = 'El correo es obligatorio';
     if (!password.trim()) newErrors.password = 'La contraseña es obligatoria';
 
-    const allowedDomain = '@tudominio.com';
+    /*const allowedDomain = '@tudominio.com';
     if (email && !email.endsWith(allowedDomain)) {
       newErrors.email = `El correo debe pertenecer al dominio ${allowedDomain}`;
     }
 
-    if (password.length < 8) {
+    /* if (password.length < 8) {
       newErrors.password = 'La contraseña debe tener al menos 8 caracteres';
     }
 
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
     if (!specialCharRegex.test(password)) {
       newErrors.password = 'La contraseña debe incluir al menos un carácter especial (por ejemplo: ! @ # $ % ^ & * ( ) , . ? " : { } | < >)';
-    }
+    }*/
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  
+  const loginEndpoint = async () => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/usuarios/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      // Login exitoso
+      window.alert(data.message); // Muestra: "Login exitoso"
+      console.log("Usuario ID:", data.user_id);
+      // Aquí podrías redirigir o guardar un token
+    } else {
+      // Error del servidor (401, etc.)
+      window.alert(data.detail || 'Ocurrió un error al iniciar sesión');
+    }
+  } catch (error) {
+    // Error de red o del backend
+    window.alert('Error de conexión con el servidor');
+    console.error(error);
+  }
+};
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validateForm()) {
+      loginEndpoint();
       console.log('Login exitoso con:', { email, password });
     }
   };
+
 
   return (
     <div className="login-container">

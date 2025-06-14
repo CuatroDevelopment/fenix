@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Dict, Optional
 
 class Permisos(BaseModel):
     cotizaciones: bool = False
@@ -13,7 +13,7 @@ class UsuarioCreate(BaseModel):
     nombre: str
     email: EmailStr
     password: str
-    permissions: Optional[Permisos]
+    permissions: Optional[Dict[str, bool]] = None
 
 class UsuarioLoginOut(BaseModel):
     email: str

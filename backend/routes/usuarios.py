@@ -12,7 +12,7 @@ def registro(usuario: UsuarioCreate):
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
     
     hashed_password = hash_password(usuario.password)
-    nuevo_usuario = usuario.model_dump()  # o usuario.dict() según Pydantic
+    nuevo_usuario = usuario.dict()
     nuevo_usuario["password"] = hashed_password
 
     # Asignar permisos por defecto si no vienen
@@ -40,11 +40,13 @@ def registro(usuario: UsuarioCreate):
 @router.post("/login")
 def login(credenciales: UsuarioLoginOut): 
     usuario = usuarios_collection.find_one({"email": credenciales.email})
+    print("correo: ", credenciales.email)
     if not usuario:
-        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+        raise HTTPException(status_code=401, detail="Correo  incorrectos")
 
     if not verify_password(credenciales.password, usuario["password"]):
-        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+        print("contraseña: ", credenciales.password)
+        raise HTTPException(status_code=401, detail="contraseña incorrectos")
 
     # Aquí puedes devolver un token JWT o simplemente un mensaje de éxito
     return {"message": "Login exitoso", "user_id": str(usuario["_id"])}

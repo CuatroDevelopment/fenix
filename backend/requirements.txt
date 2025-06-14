@@ -1,5 +1,5 @@
 fastapi==0.95.2
 uvicorn[standard]==0.22.0
 pymongo==4.3.3
-pydantic[email]
+pydantic[email]==1.10.9
 passlib[bcrypt]

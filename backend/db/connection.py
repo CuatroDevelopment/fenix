@@ -6,10 +6,11 @@ import os
 load_dotenv()
 
 mongo_uri = os.getenv("MONGO_URL")
+print("🔍 URI obtenida del .env:", os.getenv("MONGO_URL"))
 
 try:
     
-    client = MongoClient(mongo_uri)
+    client = MongoClient("mongodb://adminFenix:passFenix@mongo:27017/fenix?authSource=admin")
     client.admin.command("ping")   
     db = client["fenix"]
 
@@ -20,6 +21,7 @@ try:
     
 except ConnectionFailure:
     print("❌ No se pudo conectar a MongoDB")
+    usuarios_collection = None
 except Exception as e:
     print(f"Error inesperado: {e}")
     usuarios_collection = None
