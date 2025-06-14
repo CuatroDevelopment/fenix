@@ -1,0 +1,134 @@
+:root {
+  --primary-color: #4a6bff;
+  --background-color: #f0f2f5;
+  --text-color: #333;
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --input-border-focus: #4a6bff;
+}
+
+.login-container {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 70px;
+  margin-bottom: 10px;
+}
+
+.logo-container h1 {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 12px 15px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+}
+
+.submit-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #e57373;
+}
+
+
+
+@media (max-width: 600px) {
+  .login-card,
+  .register-card {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .logo {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  .logo-container h1 {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .submit-button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .permission-tags {
+    gap: 8px;
+  }
+
+  .permission-tag {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+

@@ -1,0 +1,143 @@
+:root {
+  --primary-color: #4a6bff;
+  --primary-hover: #3a5bef;
+  --background-color: #f5f7fa;
+  --text-color: #333333;
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --input-border-focus: #4a6bff;
+  --permission-bg: #f1f1f1;
+  --permission-selected-bg: #4a6bff;
+  --permission-selected-text: #ffffff;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--background-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 450px;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+.logo-container h1 {
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 12px 15px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: border 0.3s;
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+}
+
+.submit-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.error-message {
+  color: red;
+  font-size: 13px;
+}
+
+.permission-checkbox {
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  padding: 10px 16px;
+  border: 1px solid var(--input-border);
+  border-radius: 20px;
+  background-color: var(--permission-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.permission-checkbox.selected {
+  background-color: var(--permission-selected-bg);
+  color: var(--permission-selected-text);
+  border-color: var(--primary-color);
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .logo {
+    width: 60px;
+  }
+
+  .submit-button {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+

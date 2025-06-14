@@ -1,33 +1,21 @@
-version: "3.9"
+version: '3.8'
 
 services:
-  frontend:
-    build: .
-    ports:
-      - "5173:5173"
-    environment:
-      - VITE_API_URL=http://backend:8001
-    networks:
-      - proyecto_net
-    depends_on:
-      - backend
-
   backend:
-    build: ./backend
+    build:
+      context: ./backend
     container_name: backend
     ports:
-      - "8001:8001"
-    environment:
-      - MONGO_URL=mongodb://mongo:27017
-    networks:
-      - proyecto_net
-    depends_on:
-      - mongo
+      - "8000:8000"
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
     ports:
+<<<<<<< PF-43-Modulo-registrarse
+      - "5173:80"
+=======
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
@@ -37,9 +25,6 @@ services:
       - ./mongo_init/:/docker-entrypoint-initdb.d
     networks:
       - proyecto_net
+>>>>>>> Sprint_1
 
-networks:
-  proyecto_net:
 
-volumes:
-  mongo_data:
