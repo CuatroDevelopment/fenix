@@ -10,11 +10,12 @@ const Register = () => {
   const [errors, setErrors] = useState({});
 
   const allPermissions = [
-    'Crear usuarios',
-    'Editar usuarios',
-    'Eliminar usuarios',
-    'Ver reportes',
-    'Administrar sistema'
+    'Cotizaciones',
+    'Inventario',
+    'Orden de servicio',
+    'Garantias',
+    'Ingresos',
+    'Egresos',
   ];
 
   const handlePermissionChange = (perm) => {
@@ -50,13 +51,52 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (validateForm()) {
-      console.log('Registro exitoso con:', { email, username, password, permissions });
+  if (validateForm()) {
+    const permissionsObj = {
+      'cotizaciones': permissions.includes('Cotizaciones'),
+      'inventario': permissions.includes('Inventario'),
+      'orden_servicio': permissions.includes('Orden de servicio'),
+      'garantias': permissions.includes('Garantias'),
+      'ingresos': permissions.includes('Ingresos'),
+      'egresos': permissions.includes('Egresos'),
+    };
+
+    const data = {
+      email,
+      nombre: username,
+      password,
+      permissions: permissionsObj
+    };
+
+    try {
+      const response = await fetch("http://localhost:8001/usuarios/registro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("✅ Usuario registrado exitosamente");
+        console.log(result);
+        // Aquí puedes redirigir, limpiar el formulario, etc.
+      } else {
+        alert(`❌ Error: ${result.detail}`);
+        console.error(result);
+      }
+    } catch (error) {
+      console.error("Error al conectar con el backend:", error);
+      alert("❌ Error al conectar con el servidor.");
     }
-  };
+  }
+};
+
 
   return (
     <div className="register-container">
