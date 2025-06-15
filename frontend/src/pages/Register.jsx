@@ -85,7 +85,6 @@ const Register = () => {
       if (response.ok) {
         alert("✅ Usuario registrado exitosamente");
         console.log(result);
-        // Aquí puedes redirigir, limpiar el formulario, etc.
       } else {
         alert(`❌ Error: ${result.detail}`);
         console.error(result);

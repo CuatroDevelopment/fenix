@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import "../../styles/Login.css";
 import logo from "@/assets/react.svg";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -13,61 +16,46 @@ const Login = () => {
     if (!email.trim()) newErrors.email = 'El correo es obligatorio';
     if (!password.trim()) newErrors.password = 'La contraseña es obligatoria';
 
-    /*const allowedDomain = '@tudominio.com';
-    if (email && !email.endsWith(allowedDomain)) {
-      newErrors.email = `El correo debe pertenecer al dominio ${allowedDomain}`;
-    }
-
-    /* if (password.length < 8) {
-      newErrors.password = 'La contraseña debe tener al menos 8 caracteres';
-    }
-
-    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-    if (!specialCharRegex.test(password)) {
-      newErrors.password = 'La contraseña debe incluir al menos un carácter especial (por ejemplo: ! @ # $ % ^ & * ( ) , . ? " : { } | < >)';
-    }*/
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  
-  const loginEndpoint = async () => {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/usuarios/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const data = await res.json();
+  if (validateForm()) {
+    const data = {
+      email,
+      password
+    };
 
-    if (res.ok) {
-      // Login exitoso
-      window.alert(data.message); // Muestra: "Login exitoso"
-      console.log("Usuario ID:", data.user_id);
-      // Aquí podrías redirigir o guardar un token
-    } else {
-      // Error del servidor (401, etc.)
-      window.alert(data.detail || 'Ocurrió un error al iniciar sesión');
+    try {
+      const response = await fetch("http://localhost:8001/usuarios/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("✅ Inicio de sesión exitoso");
+        console.log("Datos del usuario:", result);
+        navigate("/register"); 
+      } else {
+        alert(`❌ Error: ${result.detail || "Credenciales inválidas"}`);
+        console.error("Respuesta del servidor:", result);
+      }
+
+    } catch (error) {
+      console.error("❌ Error al conectar con el backend:", error);
+      alert("❌ No se pudo conectar al servidor.");
     }
-  } catch (error) {
-    // Error de red o del backend
-    window.alert('Error de conexión con el servidor');
-    console.error(error);
   }
 };
 
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      loginEndpoint();
-      console.log('Login exitoso con:', { email, password });
-    }
-  };
 
 
   return (

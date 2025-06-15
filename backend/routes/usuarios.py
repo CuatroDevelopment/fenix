@@ -48,7 +48,7 @@ def login(credenciales: UsuarioLoginOut):
         print("contraseña: ", credenciales.password)
         raise HTTPException(status_code=401, detail="contraseña incorrectos")
 
-    # Aquí puedes devolver un token JWT o simplemente un mensaje de éxito
+    
     return {"message": "Login exitoso", "user_id": str(usuario["_id"])}
 
 @router.get("/dashboard")
