@@ -1,8 +1,8 @@
 
 from fastapi import APIRouter, HTTPException
 from utils.email_handler import enviar_correo_recuperacion
-from utils.jwt_handler import generar_token_recuperacion
-from models.usuario_model import UsuarioCreate, UsuarioLoginOut, Recuperacion
+from utils.jwt_handler import generar_token_recuperacion, verificar_token_recuperacion
+from models.usuario_model import NuevaContrasena, UsuarioCreate, UsuarioLoginOut, Recuperacion
 from db.connection import usuarios_collection
 from utils.password_handler import hash_password, verify_password
 import logging
@@ -71,8 +71,29 @@ async def solicitar_recuperacion(data: Recuperacion):
         raise HTTPException(status_code=404, detail="Correo no encontrado")
 
     token = generar_token_recuperacion(data.email)
-    enlace = f"http://tu-front.com/resetear?token={token}"
+    print(f"token: {token}")
+    enlace = f"http://localhost:5173/reset-password?token={token}"
     enviar_correo_recuperacion(data.email, enlace)
-
     return {"mensaje": "Correo de recuperación enviado"}
 
+@router.post("/restablecer-password")
+async def restablecer_password(data: NuevaContrasena):
+    try:
+        email = verificar_token_recuperacion(data.token)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    usuario = usuarios_collection.find_one({"email": email})
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    resultado = usuarios_collection.update_one(
+        {"email": email},
+        {"$set": {"password": hash_password(data.nueva_password)}}
+
+    )
+
+    if resultado.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado o sin cambios")
+
+    return {"mensaje": "Contraseña actualizada correctamente"}

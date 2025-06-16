@@ -54,3 +54,6 @@ class UsuarioLoginOut(BaseModel):
 class Recuperacion(BaseModel):
     email: str
 
+class NuevaContrasena(BaseModel):
+    token: str
+    nueva_password: str
