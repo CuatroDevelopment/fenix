@@ -1,5 +1,8 @@
-from fastapi import APIRouter, Body, HTTPException
-from models.usuario_model import UsuarioCreate, UsuarioLoginOut
+
+from fastapi import APIRouter, HTTPException
+from utils.email_handler import enviar_correo_recuperacion
+from utils.jwt_handler import generar_token_recuperacion
+from models.usuario_model import UsuarioCreate, UsuarioLoginOut, Recuperacion
 from db.connection import usuarios_collection
 from utils.password_handler import hash_password, verify_password
 import logging
@@ -60,3 +63,16 @@ def Dashboard (email: str):
     return {
         "permissions": usuario.get("permissions", {})
     }
+
+@router.post("/recuperar")
+async def solicitar_recuperacion(data: Recuperacion):
+    usuario = usuarios_collection.find_one({"email": data.email})
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Correo no encontrado")
+
+    token = generar_token_recuperacion(data.email)
+    enlace = f"http://tu-front.com/resetear?token={token}"
+    enviar_correo_recuperacion(data.email, enlace)
+
+    return {"mensaje": "Correo de recuperación enviado"}
+

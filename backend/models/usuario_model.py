@@ -27,10 +27,11 @@ class UsuarioCreate(BaseModel):
     que debe recibir una vez que se crea un nuevo colaborador con 
     el fin de validad los datos de entrada.
     
-    nombre: str \n
-    email: EmailStr \n
-    password: str \n
-    permissions: Optional[Permisos] 
+    Args: 
+        nombre: str \n
+        email: EmailStr \n
+        password: str \n
+        permissions: Optional[Permisos] 
     """
     nombre: str
     email: EmailStr
@@ -43,9 +44,13 @@ class UsuarioLoginOut(BaseModel):
     que debe recibir cuando el colaborador inicia sesion con 
     el fin de validad los datos de entrada.
     
-    email: str \n
-    password: str 
+    Args: 
+        email: str \n
+        password: str 
     """
     email: str
     password: str
+
+class Recuperacion(BaseModel):
+    email: str
 
