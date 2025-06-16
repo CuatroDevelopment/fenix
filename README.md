@@ -16,6 +16,15 @@ Comando para instalar decouple
 pip install python-decouple
 ```
 
+Comando para instalar axios
+```
+npm install axios
+npm install react-icons
+
+```
+
+
+
 ## Comandos Docker
 
 ### Levantar contenedores
