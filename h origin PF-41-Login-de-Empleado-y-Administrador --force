@@ -1,0 +1,39 @@
+[33mcommit 22eb4c2ac45c0506cd089a1934cfa25d478b918c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mPF-41-Login-de-Empleado-y-Administrador[m[33m)[m
+Author: JeiPRM <juan12fc@gmail.com>
+Date:   Sun Jun 15 18:52:49 2025 -0600
+
+    chore PF-41: añadida configuración de nginx para despliegue
+
+[33mcommit 9e35d8c74eed67cc8912a43cf643a680d3ddc1ef[m
+Author: JeiPRM <juan12fc@gmail.com>
+Date:   Sun Jun 15 18:46:06 2025 -0600
+
+    chore PF-41: añadido React Router para navegación del frontend
+
+[33mcommit 035ba4c9ce10da37d4e0b78d5f7d334f6956a5b3[m[33m ([m[1;31morigin/PF-43-Modulo-registrarse[m[33m, [m[1;32mmain[m[33m, [m[1;32mPF-43-Modulo-registrarse[m[33m)[m
+Author: DulceST <silvadulce541@gmail.com>
+Date:   Wed Jun 11 11:03:56 2025 -0600
+
+    chore PF-46: Correcion de la estructura del proyecto
+    
+    Se empaquetaron el front y el back en diferentes carpetas para trabajar de manera organizada
+    
+    Refs PF-46
+
+[33mcommit 6a1666d7c933320978d9f9982572340a90a4f083[m
+Author: DulceST <silvadulce541@gmail.com>
+Date:   Tue Jun 10 17:15:37 2025 -0600
+
+    chore PF-46: Levantamiento de contenedores
+    
+    Se implemento docker para el levamtamiento de los contenedores para mongo, vite + react y python,agregando los archivos Dockerfile y docker-compose.
+    
+    Refs PF-46
+
+[33mcommit 6535d5237a81121a61176bda817cf944b8dd91ba[m
+Author: DulceST <silvadulce541@gmail.com>
+Date:   Mon Jun 9 14:04:24 2025 -0600
+
+    chore PF-3: configuracion del entorno de trabajo
+    
+    Se creó el proyecto de React.\n\nRefs PF-3
