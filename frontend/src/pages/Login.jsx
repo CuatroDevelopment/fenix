@@ -7,6 +7,23 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!email.trim()) newErrors.email = 'El correo es obligatorio';
+    if (!password.trim()) newErrors.password = 'La contraseña es obligatoria';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      console.log('Login exitoso con:', { email, password });
+    }
+  };
 
   return (
     <div className="login-container">
